@@ -43,7 +43,23 @@ class LinkedList {
         let found = findValue(this, value)
         return found
     }
+    find(value) {
+        let found = findValueIndex(this, value)
+        return found
+    }
 
+    toString() {
+        let string =  stringList(this)
+        return string
+    }
+
+    insertAt(value, index) {
+        let insert = insertValueAt(this,value,index)
+    }
+    removeAt(index) {
+        let remove = removeIndex(this,index)
+        console.log(remove)
+    }
 }
 
 class Node {
@@ -76,7 +92,6 @@ function findByIndex(node, index, total=0){
 }
 
 function popLast(node) {
-    console.log(node.next.next)
     if(node.next.next == null) return node
 
     return popLast(node.next)
@@ -90,6 +105,52 @@ function findValue(node, search){
 
     return findValue(node.next,search)
 }
+
+function findValueIndex(node, search, total=0){
+
+    if(node.value === search) return total
+
+    else if(node.next == null)return null
+
+    return findValueIndex(node.next, search, total + 1)
+}
+
+function stringList(node, string = "") {
+
+    if(node.next == null) return `${string} ( ${node.value} ) -> null`
+
+    return stringList(node.next, `${string} ( ${node.value} )->`)
+}
+
+function insertValueAt(node, value, index, total = 0){
+   let x = index
+   let y = total + 1
+    if(x == y) {
+        let create = new Node(value)
+        create.next = node.next
+        node.next = create
+        
+    }
+
+    else if(node.next == null) return "Not Found"
+    
+    return insertValueAt(node.next, value, index, total + 1)
+}
+
+
+function removeIndex(node, index, total = 0){
+    let x = index
+    let y = total + 1
+     if(x == y) {
+         console.log("removing")
+        node.next = node.next.next
+         
+     }
+ 
+     else if(node.next == null) return "Not Found"
+     
+     return removeIndex(node.next, index, total + 1)
+ }
 
 
 let hotdog = new Node("Hotdog2")
@@ -113,3 +174,9 @@ console.log(linkList.at(6))
 console.log(linkList.pop())
 console.log(linkList)
 console.log(linkList.contains("BananaNew1"))
+console.log(linkList.find("Hotdog2"))
+console.log(linkList.toString())
+console.log(linkList.insertAt("Strawberry", 3))
+console.log(linkList)
+console.log(linkList.removeAt(3))
+console.log(linkList)
