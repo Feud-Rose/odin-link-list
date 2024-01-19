@@ -20,8 +20,29 @@ class LinkedList {
     return size
     }
 
+    head() {
+    return this.next 
+    }
 
+    tail() {
+    let last = checkNext(this)
+    return last
+    }
 
+    at(index){
+        let find = findByIndex(this, index)
+        return find
+    }
+
+    pop() {
+        let secondLast = popLast(this)
+        console.log(secondLast)
+        secondLast.next = null
+    }
+    contains(value) {
+        let found = findValue(this, value)
+        return found
+    }
 
 }
 
@@ -46,9 +67,29 @@ function checkSize(node, total=0){
     return checkSize(node.next, total + 1)
 }
 
+function findByIndex(node, index, total=0){
+    if(index == total) return node
 
+    else if(node.next.next == null) return "Not Found"
 
+    return findByIndex(node.next, index, total + 1)
+}
 
+function popLast(node) {
+    console.log(node.next.next)
+    if(node.next.next == null) return node
+
+    return popLast(node.next)
+}
+
+function findValue(node, search){
+
+    if(node.value === search) return true
+
+    else if(node.next == null)return false
+
+    return findValue(node.next,search)
+}
 
 
 let hotdog = new Node("Hotdog2")
@@ -62,5 +103,13 @@ linkList.prepend(banana)
 let pizza = new Node("Pizza3end")
 linkList.append(pizza)
 
-console.log(linkList)
+
 console.log(linkList.size())
+
+console.log(linkList.head())
+console.log(linkList.tail())
+console.log(linkList.at(2))
+console.log(linkList.at(6))
+console.log(linkList.pop())
+console.log(linkList)
+console.log(linkList.contains("BananaNew1"))
